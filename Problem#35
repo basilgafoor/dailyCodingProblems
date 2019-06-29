@@ -1,0 +1,89 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+/****
+ * @author BasilGafoor
+ * 
+ * Good morning! Here's your coding interview problem for today.
+	This problem was asked by Google.
+
+	Given an array of strictly the characters 'R', 'G', and 'B',
+	segregate the values of the array so that all the Rs come first,
+	the Gs come second, and the Bs come last. You can only swap elements of the array.
+	For example, given the array ['G', 'B', 'R', 'R', 'B', 'R', 'G'],
+	it should become ['R', 'R', 'R', 'G', 'G', 'B', 'B'].
+ *
+ */
+
+
+
+public class Problem_35 {
+
+	public static void sorty(char[] ar) {
+
+		int left = 0;  int len = ar.length;int right =len-1;
+		
+		//Move Rs to the front
+		while(true) {
+			while(ar[left]=='R' && left < right) {
+				//find first R
+				left += 1;
+			}
+			
+			while(ar[right] !='R' && left < right) {
+				//find last R
+				right -= 1;
+			}
+			
+			if (left >= right)
+					break;
+			char temp;
+			temp = ar[left];
+			ar[left] = ar[right];
+			ar[right] = temp;
+			right = len-1;
+		}
+		
+		//Move Bs to the end
+		 left = 0; right =len-1;
+		while(true){
+			
+			while(ar[left] != 'B' && left<right) {
+				left += 1;
+			}
+			while(right == 'B' && left <right) {
+				right -= 1;
+			}
+
+			if(left >= right)
+				break;
+			
+			char temp;
+			temp = ar[left];
+			ar[left] = ar[right];
+			ar[right] = temp;
+			right -= 1;
+		}
+		
+		
+		System.out.println("Inside Sorty:"+Arrays.toString(ar));
+	}	
+	
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter the size of the Array: ");
+		int n = sc.nextInt();
+		char[] arr = new char[n];
+		System.out.println("Enter the characters:\n");
+		for(int i=0;i<n;i++) {
+			arr[i] = sc.next().charAt(0);
+		}
+		
+		System.out.println("Initial Array is: "+Arrays.toString(arr));
+		
+		sorty(arr);
+		//System.out.println("After sorting the array is: "+arr);
+	}
+
+	
+}
