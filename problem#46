@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+/*****
+ * @author Basil Gafoor
+ *
+ *Good morning! Here's your coding interview problem for today.
+ *
+ * This problem was asked by Amazon.
+ * Given a string, find the longest palindromic contiguous substring.
+ * If there are more than one with the maximum length, return any one.
+ * For example, the longest palindromic substring of "aabcdcb" is "bcdcb". 
+ * The longest palindromic substring of "bananas" is "anana".
+ */
+
+public class Problem_46 {
+
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the String: ");
+		String s = sc.nextLine();
+		int max =0;
+		String sFinal =null; 
+		int len=0;
+		for(int i=0;i<s.length();i++) {
+			for(int j=i;j<s.length();j++) {
+				StringBuffer sb = new StringBuffer(s.substring(i,j+1));
+				
+				if(sb.toString().equalsIgnoreCase(sb.reverse().toString())) {
+					 len = sb.length();
+					if(len > max) {
+						max = len;
+					    sFinal = sb.toString();
+					}
+				}
+			}
+		}
+		
+		System.out.println("The maximum palindromic substring is: "+sFinal);
+	}
+	
+	
+}
