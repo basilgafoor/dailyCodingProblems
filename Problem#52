@@ -1,0 +1,81 @@
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+/**********
+ *Daily coding problems solutions in JAVA
+ * 
+ * @author Basil Gafoor
+ * 
+ * Any Questions? Ping me at https://www.linkedin.com/in/basil-gafoor/
+ * 
+ * Good morning! Here's your coding interview problem for today.
+ * 
+ * This problem was asked by Google.
+ * Implement an LRU (Least Recently Used) cache. It should be able to be initialized with a cache size n,
+ * and contain the following methods:
+ * set(key, value): sets key to value. If there are already n items in the cache and we are adding a new item, 
+ * then it should also remove the least recently used item.
+ * get(key): gets the value at key. If no such key exists, return null.
+ * Each operation should run in O(1) time.
+ * 
+ */
+
+public class Problem_52 {
+
+	public static void main(String[] args) {
+		
+		LRUCache<String,String> cache = new LRUCache<String,String>(3);
+		cache.set("ONE", "1");
+		cache.set("TWO", "2");
+		cache.set("THREE", "3");
+        cache.set("FOUR", "4");
+        
+        System.out.println("Getting the value of TWO :" + cache.get("TWO"));
+        System.out.println("Getting the value of ONE: "+cache.get("ONE"));
+        //It return NULL, as FOUR has replaced the LRU key - ONE
+        
+        cache.set("FIVE", "5");
+        System.out.println("Getting the value of THREE: "+cache.get("THREE"));
+        //It return NULL, as FIVE has replaced the LRU key - THREE
+        System.out.println("Getting the value of TWO: "+cache.get("TWO"));
+        
+        System.out.println("Getting the value of FOUR: "+cache.get("FOUR"));
+        cache.set("FOUR", "IV");
+        System.out.println("Getting the value of FOUR: "+cache.get("FOUR"));
+        
+	}
+	
+	
+	public static final class LRUCache<K,V>{
+		
+		Map<K,V> map = new LinkedHashMap<>();
+		final int maxSize;
+		
+		public LRUCache(int size) {
+			maxSize = size;
+		}
+		
+		public void set(K key, V value) {
+			if(map.containsKey(key))
+					map.remove(key);
+			else if(map.size() == maxSize)
+				map.remove(map.keySet().iterator().next());
+			
+			map.put(key,value);
+		}
+		
+		
+		public V get(K key) {
+			if(!map.containsKey(key))
+				return null;
+			
+			V value = map.remove(key);
+			
+			map.put(key,value);
+			return value;
+		}
+	}
+	
+}
+
+
